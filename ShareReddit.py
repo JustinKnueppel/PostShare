@@ -1,6 +1,7 @@
 import requests
 import info
 from twilio.rest import Client
+from random import choice
 
 subreddit = 'aww'
 req = requests.get(f'https://www.reddit.com/r/{subreddit}/top.json?t=day', headers = {'User-agent' : 'Justin'})
@@ -11,4 +12,6 @@ url = js['data']['children'][0]['data']['url']
 
 client = Client(info.accountSID, info.authToken)
 
-message = client.messages.create(body=f'<3\n\nHere you go! {url}', from_=info.myTwilioNumber, to=info.myCellPhone)
+for person in info.people:
+    message = choice(person['Messages'])
+    response = client.messages.create(body=f'\n\n{message} \n{url}', from_=info.myTwilioNumber, to=person['Phone Number'])
