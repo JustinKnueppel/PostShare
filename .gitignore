@@ -1,5 +1,6 @@
 apiinfo
 info.py
+output.txt
 env/
 env/*
 .vscode
