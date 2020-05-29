@@ -1,29 +1,42 @@
-## Post Sharing
+# Post Sharing
 
-Use Reddit API to share posts
+Use Reddit API to share posts via the Twilio API
 
-# To set up venv
+## Docker
 
-```
-python -m venv env
-pip install -r requirements.txt
-```
+Relies on docker running on current system
 
 # To set up cron job
 
 ```
 crontab -e
-
-* 10 * * * cd /path/to/PostShare;source env/bin/activate;python ShareReddit.py
 ```
 
-# info.py
+Add the following line to the crontab
 
 ```
-accountSID = 'xxxMyAccountSIDxxx'
-authToken = 'xxxMyAuthTokenxxx'
-myTwilioNumber = 'xxxMyTwilioNumberxxx'
-person1 = {'Phone Number' : '+1234567890', 'Messages' : ['Message 1', 'Message 2']}
-person2 = {'Phone Number' : '+12223334444', 'Messages' : ['Message 1', 'Message 2']}
-people = [person1, person2]
+0 10 * * * /path/to/PostShare/automate.sh
+```
+
+# people.json
+
+```
+[
+  {
+    "name": "John Doe",
+    "phone_number": "12348675309"
+    "messages": [
+      "Hello",
+      "World"
+    ]
+  }
+]
+```
+
+# .env
+
+```
+TWILIO_SID=<your sid>
+TWILIO_AUTH_TOKEN=<your auth token>
+TWILIO_MY_NUMBER=<your number>
 ```
