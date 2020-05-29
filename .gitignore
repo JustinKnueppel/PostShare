@@ -1,9 +1,11 @@
-apiinfo
-info.py
-output.txt
+# Environment
 env/
-env/*
 .vscode
-.vscode/*
-__pycache__
-__pycache__/*
+*.json
+.env
+
+# Cache
+**/__pycache__
+
+# Logging
+*.log
