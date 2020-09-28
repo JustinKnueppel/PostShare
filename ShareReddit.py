@@ -77,9 +77,16 @@ def get_my_number() -> str:
     return os.environ.get("TWILIO_MY_NUMBER")
 
 
-def get_full_message(person: Person, message: str, reddit_post: RedditPost) -> str:
-    full_message = f'\n\n{message} \n{reddit_post["title"]}\n{reddit_post["url"]}'
+def get_full_message(quote, message: str, reddit_post: RedditPost) -> str:
+    full_message = f'\n\n{quote["quote"]}\n\nBy: {quote["author"]}\n\n{message} \n{reddit_post["title"]}\n{reddit_post["url"]}'
     return full_message
+
+def get_qod() -> str:
+    response = requests.get("https://quotes.rest/qod?category=inspire&language=en")
+    data = response.json()
+    quote = data["contents"]["quotes"][0]["quote"]j
+    author = data["contents"]["quotes"][0]["author"]j
+    return { "quote": quote, "author": author }
 
 
 def main():
@@ -87,10 +94,11 @@ def main():
     client = get_client()
     people = get_people('./people.json')
     reddit_post = get_reddit_post(subreddit='awww')
+    quote = get_qod()
 
     for person in people:
         message = choice(person['messages'])
-        full_message = get_full_message(person, message, reddit_post)
+        full_message = get_full_message(quote, message, reddit_post)
         response = send_message(client, person["phone_number"], full_message)
         print(f'Sent message to {person["name"]}')
         print(response)
