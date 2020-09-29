@@ -9,3 +9,10 @@ env/
 
 # Logging
 *.log
+
+# Ignore dependencies
+src/*
+!src/ShareReddit.py
+
+infrastructure/*.zip
+**/.terraform
